@@ -1,0 +1,61 @@
+* 
+    box-sizing: border-box
+
+body 
+    
+    background-image: url(./assets/background.jpg)
+    background-repeat: repeat
+    background-color: #020d18
+    
+
+.slider
+    max-width: 1220px
+    margin: 0  auto !important
+
+
+.dots
+    float: right
+    margin-right: 5px
+
+.dots li 
+    list-style: none
+    cursor: pointer
+    display: inline-block
+    margin: 0 5px
+  
+
+.dots li button
+    border: none
+    background: white
+    color: transparent
+    cursor: pointer
+    display: block
+    height: 12px
+    width: 12px
+    border-radius: 7.5px
+    outline: none
+
+.dots li.slick-active button
+    border: none 
+    background: yellow 
+
+.pagination
+    margin-bottom: 40px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    width: 300px
+    padding: 8px 13px
+    border: 1px solid white
+    border-radius: 4px
+    text-decoration: none
+.pagination li
+    display: flex
+    align-items: center
+    list-style: none
+    
+    
+.pagination li a
+    text-decoration: none
+    color: white
+    padding-bottom: 2px
