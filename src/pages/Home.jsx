@@ -15,7 +15,7 @@ export const Home = () => {
     fetchMovies
   );
   const { data: news, isLoading: newsIsLoading } = useQuery("news", fetchNews);
-
+console.log(news);
   return (
     <div>
       {moviesIsLoading && (

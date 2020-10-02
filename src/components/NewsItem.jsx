@@ -9,7 +9,8 @@ export const NewsItem = ({ title, description, publishedAt, urlToImage , backgro
   const dateUTCHours = date.getHours();
   const today = new Date();
   const todayHour = today.getHours();
-
+  const path = title.replace(/ /g, '-')
+ 
   let difference = todayHour - dateUTCHours;
   const showTime = () => {
     if (
@@ -27,7 +28,7 @@ export const NewsItem = ({ title, description, publishedAt, urlToImage , backgro
     );
   };
   return (
-    <Container to='single-news' background={background}>
+    <Container to={`/content/${path}`} background={background}>
       <Image src={urlToImage} alt="news-img" />
       <Text>
         <h3>{title}</h3>

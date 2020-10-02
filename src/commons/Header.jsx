@@ -18,9 +18,9 @@ export const Header = () => {
 
           <div>
             <Link to="">Home</Link>
-            <Link to="movies">Movies</Link>
-            <Link to="news">News</Link>
-            <Link to="community">Community</Link>
+            <Link  to="/movies">Movies</Link>
+            <Link to="/news">News</Link>
+            <Link to="/community">Community</Link>
           </div>
         </div>
         <div>
