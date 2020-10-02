@@ -52,4 +52,3 @@ const Container = styled.div`
     color: white;
   }
 `;
-const NewsCOntianer = styled.div``;

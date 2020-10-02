@@ -1,7 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import styled from "styled-components";
-import { Layout } from "../commons/Layout";
+
 
 import { SliderItem } from "./SliderItem";
 

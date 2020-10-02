@@ -14,7 +14,7 @@ export const SingleNews = ({
 }) => {
   const { data, isLoading } = useQuery("news", fetchNews);
   const newsTitle = path.replace(/-/g, " ");
-  const singleNews = data?.find((news) => news.title == newsTitle);
+  const singleNews = data?.find((news) => news.title === newsTitle);
 
   const date = new Date(singleNews?.publishedAt);
   return (
@@ -30,7 +30,7 @@ export const SingleNews = ({
             {date.getDate()} {date.toLocaleString("default", { month: "long" })}{" "}
             {date.getFullYear()}
           </h5>
-          <img src={singleNews.urlToImage} />
+          <img alt='news img' src={singleNews.urlToImage} />
           <p>{singleNews.content}</p>
         </Layout>
       )}

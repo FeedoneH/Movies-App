@@ -3,7 +3,7 @@ import { Header } from "./commons/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Home, Movies, News } from "./pages";
 import { SearchBar } from "./commons/SearchBar";
-import styled from "styled-components";
+
 import { SingleNews } from "./pages/SingleNews";
 
 function App() {

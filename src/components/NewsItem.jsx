@@ -28,7 +28,7 @@ export const NewsItem = ({ title, description, publishedAt, urlToImage , backgro
     );
   };
   return (
-    <Container to={`/content/${path}`} background={background}>
+    <Container to={`/content/${encodeURI(path)}`} background={background}>
       <Image src={urlToImage} alt="news-img" />
       <Text>
         <h3>{title}</h3>
