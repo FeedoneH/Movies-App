@@ -6,7 +6,7 @@ import { LOGOS } from "../assets/index";
 import { COLORS } from "../styles/COLORS";
 import { Layout } from "./Layout";
 
-export const Header = () => {
+export const Header = ({logInOnClick, signUpOnClick}) => {
   return (
     <Layout transparent={true}>
       <Container>
@@ -24,8 +24,8 @@ export const Header = () => {
           </div>
         </div>
         <div>
-          <Btn>log in</Btn>
-          <Btn>
+          <Btn onClick={logInOnClick}>log in</Btn>
+          <Btn onClick={signUpOnClick}>
             <div>sign up</div>
           </Btn>
         </div>
@@ -36,7 +36,6 @@ export const Header = () => {
 
 const Container = styled.header`
   padding: 15px 0;
-
   display: flex;
   justify-content: space-between;
   div {

@@ -24,20 +24,17 @@ export const News = (params) => {
   );
   return (
     <Container>
-      {/* <h1>Daily News</h1> */}
+      <h1>Daily News</h1>
+      <Layout marginTop={"60px"} padding={'30px 0'}>
+        {data && <NewsList news={currentNews} background={COLORS.itemBg} />}
 
-      <Layout>
-        <Container>{data && <NewsList news={currentNews} background={COLORS.itemBg} />}</Container>
-
-        <Container>
-          <Pagination
-            activePage={activePage}
-            itemsCountPerPage={itemsPerPage}
-            totalItemsCount={data?.length}
-            pageRangeDisplayed={3}
-            onChange={handlePageChange}
-          />
-        </Container>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={data?.length}
+          pageRangeDisplayed={3}
+          onChange={handlePageChange}
+        />
       </Layout>
     </Container>
   );
@@ -45,7 +42,7 @@ export const News = (params) => {
 
 const Container = styled.div`
   padding: 20px 0 10px;
-  margin: 40px 0;
+  /* margin: 40px 0; */
   h1 {
     text-align: center;
     text-transform: uppercase;

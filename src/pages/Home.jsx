@@ -5,17 +5,17 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { SliderList } from "../components/SliderList";
-import { fetchMovies, fetchNews } from "../FetchAPI";
+import { fetchSliderMovies, fetchNews } from "../FetchAPI";
 import { NewsItem } from "../components";
 import { COLORS } from "../styles/COLORS";
 import { Layout } from "../commons/Layout";
 export const Home = () => {
   const { data: movies, isLoading: moviesIsLoading } = useQuery(
     "movies",
-    fetchMovies
+    fetchSliderMovies
   );
   const { data: news, isLoading: newsIsLoading } = useQuery("news", fetchNews);
-console.log(news);
+  
   return (
     <div>
       {moviesIsLoading && (
@@ -27,9 +27,9 @@ console.log(news);
         <span>Follow Us</span>
         {movies && <SliderList movies={movies} />}
       </Main>
-      <Layout transparent={false}>
+      <Layout marginTop={"80px"} transparent={false}>
         <NewsContainer>
-        <Heading>latest news</Heading>
+          <Heading>latest news</Heading>
           {news && <NewsItem {...news[0]} />}
           <NewsLink to="news">see all movies news {">"}</NewsLink>
         </NewsContainer>
@@ -47,7 +47,6 @@ const Heading = styled.h1`
 `;
 const Main = styled.div`
   margin: 20px 0 80px;
-
   display: flex;
   flex-direction: column;
   span {
@@ -59,7 +58,6 @@ const Main = styled.div`
 const NewsContainer = styled.div`
   margin: 50px 0 30px;
   display: inline-block;
- 
   padding: 80px 0;
   width: 80%;
   height: 500px;
@@ -67,7 +65,7 @@ const NewsContainer = styled.div`
 
 const NewsLink = styled(Link)`
   color: ${COLORS.text};
-  
+
   float: right;
   font-size: 19px;
   text-decoration: none;

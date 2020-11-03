@@ -1,5 +1,5 @@
 const movieLink= 'http://www.omdbapi.com/?s=wild&apikey=796ba183'
-const newsLink = 'http://newsapi.org/v2/everything?sources=the-next-web&q=movie&from=2020-09-15&to=2020-10-01&sortBy=publishedAt&apiKey=92667024d01a45f4965ef90275f65703'
+const newsLink = 'http://newsapi.org/v2/everything?sources=the-next-web&q=movie&from=2020-10-11&to=2020-11-3&sortBy=publishedAt&apiKey=92667024d01a45f4965ef90275f65703'
  
 export const getData =  (domain, page,results ) => {
    return async ()=> {
@@ -9,9 +9,10 @@ export const getData =  (domain, page,results ) => {
       let res = await fetch(link);
       let data = await res.json();
       arr.push(...data[results]);
-      return arr;
     }
+    return arr;
   }
   };
-  export const fetchMovies = getData(movieLink,1,'Search')
+  export const fetchMovies = getData(movieLink,20,'Search')
+  export const fetchSliderMovies = getData(movieLink,1,'Search')
   export const fetchNews = getData(newsLink,5,'articles')
