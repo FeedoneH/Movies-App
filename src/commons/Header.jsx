@@ -38,6 +38,7 @@ const Container = styled.header`
   padding: 15px 0;
   display: flex;
   justify-content: space-between;
+
   div {
     margin: 0;
     display: flex;

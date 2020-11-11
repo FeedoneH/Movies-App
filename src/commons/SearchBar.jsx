@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ICONS } from '../assets';
 import { COLORS } from '../styles/COLORS';
 import { Layout } from './Layout';
 
@@ -10,7 +11,7 @@ export const SearchBar = ({onChange, value, placeholder}) => {
         <Container>
             <Input onChange={onChange} value={value} placeholder={placeholder}/>
             <Button>
-                search
+                <img src={ICONS.search}/>
             </Button>
         </Container>
         </Layout>
@@ -39,4 +40,10 @@ border-left: none;
 background-color: ${COLORS.secondaryBg};
 outline: none;
 cursor: pointer;
+width: 60px;
+img {
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+}
 `
