@@ -5,7 +5,7 @@ import Modal from "react-modal";
 
 import { Input } from "./Input";
 import { signUser, getAuthStatus } from "../store/auth";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 let style = {
   overlay: {
@@ -27,94 +27,97 @@ let style = {
 const mapStateToProps = (state) => ({
   status: getAuthStatus(state),
 });
-export const LogIn = connect(mapStateToProps, { signUser })(
-  ({
-    isOpen,
-    onRequestClose,
-    signUp,
-    signUser,
-    status,
-    history,
-  }) => {
-    const [fields, setFields] = useState({
-      email: "",
-      password: "",
-      fullName: "",
-      retypePassword: "",
-    });
-    const handleFieldChange = (name, value) =>
-      setFields((fields) => ({
-        ...fields,
-        [name]: value,
-      }));
+const LogIn = ({
+  isOpen,
+  onRequestClose,
+  signUp,
+  signUser,
+  status,
+  history,
+}) => {
+  const [fields, setFields] = useState({
+    email: "",
+    password: "",
+    fullName: "",
+    retypePassword: "",
+  });
 
-    const sign = (signIn) => {
-      signUser(fields, signIn);
-      if (!!status) {
-       return <Redirect to='/community'/>
-      }
-      alert("wrong");
-    };
-    return (
-      <Modal style={style} isOpen={isOpen} onRequestClose={onRequestClose}>
-        {!!signUp ? (
-          <Container>
-            <h3>Sign Up</h3>
-            <Input
-              heading={"Your Full Name"}
-              name={"fullName"}
-              placeholder="Your password"
-              handleFieldChange={handleFieldChange}
-            />
-            <Input
-              heading={"Email"}
-              name={"email"}
-              placeholder="Your e-mail"
-              handleFieldChange={handleFieldChange}
-            />
-            <Input
-              heading={"Password"}
-              name={"password"}
-              type={"password"}
-              placeholder="Your password"
-              handleFieldChange={handleFieldChange}
-            />
+  const handleFieldChange = (name, value) =>
+    setFields((fields) => ({
+      ...fields,
+      [name]: value,
+    }));
 
-            <Input
-              heading={"Retype Password"}
-              name={"retypePassword"}
-              type={"password"}
-              placeholder="Retype Your Password"
-              handleFieldChange={handleFieldChange}
-            />
-            <Button onClick={() => sign(fields, false)}>sign up</Button>
-          </Container>
-        ) : (
-          <Container>
-            <h3>LOGIN</h3>
-            <Input
-              heading={"Email"}
-              name={"email"}
-              placeholder="Your e-mail"
-              handleFieldChange={handleFieldChange}
-            />
-            <Input
-              heading={"Password"}
-              name={"password"}
-              type={"password"}
-              placeholder="Your password"
-              handleFieldChange={handleFieldChange}
-            />
+  const sign = (signIn) => {
+    console.log("hello");
 
-            <Button onClick={() => sign(fields, true)}>log in</Button>
-          </Container>
-        )}
-      </Modal>
-    );
-  }
-);
+    signUser(fields, signIn);
+    if (!!status) {
+      history.push("/community");
+      isOpen = false;
+    }
+    alert("wrong");
+  };
+  return (
+    <Modal style={style} isOpen={isOpen} onRequestClose={onRequestClose}>
+      {!!signUp ? (
+        <Container>
+          <h3>Sign Up</h3>
+          <Input
+            heading={"Your Full Name"}
+            name={"fullName"}
+            placeholder="Your password"
+            handleFieldChange={handleFieldChange}
+          />
+          <Input
+            heading={"Email"}
+            name={"email"}
+            placeholder="Your e-mail"
+            handleFieldChange={handleFieldChange}
+          />
+          <Input
+            heading={"Password"}
+            name={"password"}
+            type={"password"}
+            placeholder="Your password"
+            handleFieldChange={handleFieldChange}
+          />
+
+          <Input
+            heading={"Retype Password"}
+            name={"retypePassword"}
+            type={"password"}
+            placeholder="Retype Your Password"
+            handleFieldChange={handleFieldChange}
+          />
+          <Button onClick={() => sign(fields, false)}>sign up</Button>
+        </Container>
+      ) : (
+        <Container>
+          <h3>LOGIN</h3>
+          <Input
+            heading={"Email"}
+            name={"email"}
+            placeholder="Your e-mail"
+            handleFieldChange={handleFieldChange}
+          />
+          <Input
+            heading={"Password"}
+            name={"password"}
+            type={"password"}
+            placeholder="Your password"
+            handleFieldChange={handleFieldChange}
+          />
+
+          <Button onClick={() => sign(fields, true)}>log in</Button>
+        </Container>
+      )}
+    </Modal>
+  );
+};
+
 Modal.setAppElement("body");
-
+export default connect(mapStateToProps, { signUser })(withRouter(LogIn));
 const Container = styled.div`
   background-color: white;
   display: flex;
@@ -139,4 +142,5 @@ const Button = styled.button`
   text-transform: uppercase;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 `;

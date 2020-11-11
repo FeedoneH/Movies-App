@@ -51,7 +51,7 @@ export const signUser = ({ email, password }, signIn) => async (dispatch) => {
       body: JSON.stringify({ email, password, returnSecureToken: true }),
     });
     const answer = await response.json();
-    if(!!answer){
+    if(!answer.error){
     const { email, idToken, localId } = answer;
     dispatch(SetAuthSuccess({ email, idToken, localId }));}
     else {
@@ -59,6 +59,6 @@ export const signUser = ({ email, password }, signIn) => async (dispatch) => {
     }
     console.log(answer);
   } catch (error) {
-    console.log(error);
+    console.log(error,'auth');
   }
 };
