@@ -1,8 +1,8 @@
 const SET_AUTH_SUCCESS = "SET_AUTH_SUCCESS";
 const SET_LOG_OUT = "SET_LOG_OUT";
 export const MODULE_NAME = "auth";
-const getAuthToken = () => (state) => state[MODULE_NAME].idToken;
-export const getAuthStatus = () => (state) => state[MODULE_NAME].status;
+const getAuthToken = (state) => state[MODULE_NAME].idToken;
+export const getAuthStatus = (state) => state[MODULE_NAME].status;
 
 const initialState = {
   status: false,

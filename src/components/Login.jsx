@@ -50,13 +50,11 @@ const LogIn = ({
 
   const sign = (signIn) => {
     console.log("hello");
-
     signUser(fields, signIn);
-    if (!!status) {
-      history.push("/community");
-      isOpen = false;
-    }
-    alert("wrong");
+
+    isOpen = false;
+    history.push("/community");
+    
   };
   return (
     <Modal style={style} isOpen={isOpen} onRequestClose={onRequestClose}>
@@ -117,7 +115,7 @@ const LogIn = ({
 };
 
 Modal.setAppElement("body");
-export default connect(mapStateToProps, { signUser })(withRouter(LogIn));
+export default withRouter(connect(mapStateToProps, { signUser })(LogIn));
 const Container = styled.div`
   background-color: white;
   display: flex;
