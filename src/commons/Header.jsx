@@ -53,7 +53,7 @@ const Container = styled.header`
   }
 
   img {
-    width: 80px;
+    width: 90px;
     height: 80px;
     padding: 10px;
   }
@@ -62,11 +62,12 @@ const Container = styled.header`
 const Link = styled(NavLink)`
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
   padding: 10px 35px;
   margin: 5px;
   color: white;
   color: ${COLORS.text};
+  font-weight: bold;
 `;
 
 const Btn = styled.button`
@@ -76,7 +77,7 @@ const Btn = styled.button`
   outline: none;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 15px;
   color: ${COLORS.text};
   font-weight: bold;
   &:nth-child(1) {

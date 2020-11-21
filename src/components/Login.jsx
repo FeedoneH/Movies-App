@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Modal from "react-modal";
 
 import { Input } from "./Input";
 import { signUser, getAuthStatus, getError } from "../store/auth";
-import { Redirect, withRouter } from "react-router-dom";
+import {withRouter } from "react-router-dom";
+import { Btn } from "./Btn";
 
 let style = {
   overlay: {
@@ -28,107 +29,93 @@ const mapStateToProps = (state) => ({
   status: getAuthStatus(state),
   error: getError(state),
 });
-const LogIn = ({
-  isOpen,
-  onRequestClose,
-  signUp,
-  signUser,
-  status,
-  error,
-  history,
-}) => {
-  const [fields, setFields] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-    retypePassword: "",
-  });
-  const redirect = () => {
-    console.log(error, "redireee");
-    if (!!status) {
-      alert("hello");
-      console.log(error, "redi");
-      // history.push("/community")
-      return <Redirect to="/community" />;
-    } else if (error) {
-      alert(error);
-    }
-  };
-  const handleFieldChange = (name, value, e) => {
-    e.preventDefault();
-    setFields((fields) => ({
-      ...fields,
-      [name]: value,
-    }));
-  };
+const LogIn = connect(mapStateToProps, { signUser })(
+  ({ isOpen, onRequestClose, signUp, signUser, history, status, error }) => {
+    const [fields, setFields] = useState({
+      email: "",
+      password: "",
+      fullName: "",
+      retypePassword: "",
+    });
+let openRef = useRef(isOpen)
+    const handleFieldChange = (name, value, e) => {
+      e.preventDefault();
+      setFields((fields) => ({
+        ...fields,
+        [name]: value,
+      }));
+    };
 
-  const sign = (e, signIn) => {
-    signUser(fields, signIn);
-  };
-  return (
-    <Modal style={style} isOpen={!status} onRequestClose={onRequestClose}>
-      {!!status ? (
-        <Redirect to="/community" />
-      ) : (
-        <div>
-          {!!signUp ? (
-            <Container>
-              <h3>Sign Up</h3>
-              <Input
-                heading={"Your Full Name"}
-                name={"fullName"}
-                placeholder="Your name"
-                handleFieldChange={handleFieldChange}
-              />
-              <Input
-                heading={"Email"}
-                name={"email"}
-                placeholder="Your e-mail"
-                handleFieldChange={handleFieldChange}
-              />
-              <Input
-                heading={"Password"}
-                name={"password"}
-                type={"password"}
-                placeholder="Your password"
-                handleFieldChange={handleFieldChange}
-              />
+    const sign = (signIn) => {
+      
+        signUser(fields, signIn);
+     
+    };
+    useEffect(() => {
+      if (!!status) {
+        history.push("/community");
+        openRef.current=false;
+      } 
+    }, [status]);
+    return (
+      <Modal style={style} isOpen={openRef.current} onRequestClose={onRequestClose}>
+        {!!signUp ? (
+          <Container>
+            <h3>Sign Up</h3>
+            <Input
+              heading={"Your Full Name"}
+              name={"fullName"}
+              placeholder="Your name"
+              handleFieldChange={handleFieldChange}
+            />
+            <Input
+              heading={"Email"}
+              name={"email"}
+              placeholder="Your e-mail"
+              handleFieldChange={handleFieldChange}
+            />
+            <Input
+              heading={"Password"}
+              name={"password"}
+              type={"password"}
+              placeholder="Your password"
+              handleFieldChange={handleFieldChange}
+            />
 
-              <Input
-                heading={"Retype Password"}
-                name={"retypePassword"}
-                type={"password"}
-                placeholder="Retype Your Password"
-                handleFieldChange={handleFieldChange}
-              />
-              <Button onClick={()=>signUser(fields, false)}>sign up</Button>
-            </Container>
-          ) : (
-            <Container>
-              <h3>LOGIN</h3>
-              <Input
-                heading={"Email"}
-                name={"email"}
-                placeholder="Your e-mail"
-                handleFieldChange={handleFieldChange}
-              />
-              <Input
-                heading={"Password"}
-                name={"password"}
-                type={"password"}
-                placeholder="Your password"
-                handleFieldChange={handleFieldChange}
-              />
-              {error && <div>{error}</div>}
-
-              <Button onClick={()=>signUser(fields, true)}>log in</Button>
-            </Container>
-          )}
-        </div>
-      )}
-    </Modal>
-  );
-};
+            <Input
+              heading={"Retype Password"}
+              name={"retypePassword"}
+              type={"password"}
+              placeholder="Retype Your Password"
+              handleFieldChange={handleFieldChange}
+            />
+            <Btn onClick={() => sign(fields, false)} title={"sign up"} />
+            {/* <Button onClick={()=>signUser(fields, false)}>sign up</Button> */}
+          </Container>
+        ) : (
+          <Container>
+            <h3>LOGIN</h3>
+            <Input
+              heading={"Email"}
+              name={"email"}
+              placeholder="Your e-mail"
+              handleFieldChange={handleFieldChange}
+            />
+            <Input
+              heading={"Password"}
+              name={"password"}
+              type={"password"}
+              placeholder="Your password"
+              handleFieldChange={handleFieldChange}
+            />
+            {error && <div>{error}</div>}
+            <Btn onClick={() => sign(true)} title={"log in"} />
+          </Container>
+        )}
+      </Modal>
+    );
+  }
+);
 
 Modal.setAppElement("body");
 export default withRouter(connect(mapStateToProps, { signUser })(LogIn));
@@ -143,18 +130,4 @@ const Container = styled.div`
     font-size: 25px;
     text-transform: uppercase;
   }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 40px;
-  outline: none;
-  font-size: 16px;
-  margin: 10px 0 20px;
-  background-color: #f5164e;
-  color: white;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
 `;

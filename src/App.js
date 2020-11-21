@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Header } from "./commons/Header";
 import { Route, Switch } from "react-router-dom";
 
@@ -11,19 +11,19 @@ import { Community } from "./pages/Community";
 import { getAuthStatus } from "./store/auth";
 import { connect } from "react-redux";
 
-
 function App({ status }) {
   const [loginModal, setLoginModal] = useState({
     status: false,
     signUp: false,
   });
+
   const setActive = (signUp) => {
     setLoginModal((v) => ({ status: !v.status, signUp }));
   };
 
   return (
     <div>
-      {loginModal.status && (
+      {!!loginModal.status && (
         <LogIn
           signUp={loginModal.signUp}
           isOpen={loginModal.status}
@@ -40,11 +40,10 @@ function App({ status }) {
         <Route exact path="/" component={Home} />
         <Route exact path="/movies" component={Movies} />
         <Route exact path="/news" component={News} />
-        { <Route path="/community" component={Community} />}
+        {<Route path="/community" component={Community} />}
         <Route path="/news/:path" component={SingleNews} />
         <Route path="/movies/:path" component={SingleMovie} />
       </Switch>
-   
     </div>
   );
 }

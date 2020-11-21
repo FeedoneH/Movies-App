@@ -9,10 +9,10 @@ import { fetchNews } from "../FetchAPI";
 import { COLORS } from "../styles/COLORS";
 
 export const News = (params) => {
-  const { data, isLoading } = useQuery("news", fetchNews);
+  const { data } = useQuery("news", fetchNews);
   const [activePage, setActivePage] = useState(1);
   let itemsPerPage = data?.length < 20 ? 7 : 10;
-  console.log(data);
+
   function handlePageChange(pageNumber) {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
