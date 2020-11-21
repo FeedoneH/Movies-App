@@ -8,9 +8,11 @@ import { SingleNews } from "./pages/SingleNews";
 import { SingleMovie } from "./pages/SingleMovie";
 import LogIn from "./components/Login";
 import { Community } from "./pages/Community";
+import { getAuthStatus } from "./store/auth";
+import { connect } from "react-redux";
 
 
-function App({ statuss }) {
+function App({ status }) {
   const [loginModal, setLoginModal] = useState({
     status: false,
     signUp: false,
@@ -38,13 +40,15 @@ function App({ statuss }) {
         <Route exact path="/" component={Home} />
         <Route exact path="/movies" component={Movies} />
         <Route exact path="/news" component={News} />
-        {<Route path="/community" component={Community} />}
+        { <Route path="/community" component={Community} />}
         <Route path="/news/:path" component={SingleNews} />
         <Route path="/movies/:path" component={SingleMovie} />
       </Switch>
-      {/* {route} */}
+   
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => ({
+  status: getAuthStatus(state),
+});
+export default connect(mapStateToProps)(App);

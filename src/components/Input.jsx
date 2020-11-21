@@ -16,7 +16,7 @@ export const Input = ({ heading,handleFieldChange, name , ...rest}) => {
         type="text"
         name={name}
        {...rest}
-        onChange={(e) => handleFieldChange(name, e.target.value)}
+        onChange={(e) => handleFieldChange(name, e.target.value,e)}
       />
     </Container>
   );

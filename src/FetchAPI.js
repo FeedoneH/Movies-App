@@ -1,5 +1,5 @@
 const movieLink= 'http://www.omdbapi.com/?s=wild&apikey=796ba183'
-const newsLink = 'http://newsapi.org/v2/everything?sources=the-next-web&q=movie&from=2020-10-11&to=2020-11-3&sortBy=publishedAt&apiKey=92667024d01a45f4965ef90275f65703'
+const newsLink = 'http://newsapi.org/v2/everything?sources=the-next-web&q=movie&from=2020-11-5&to=2020-11-13&sortBy=publishedAt&apiKey=92667024d01a45f4965ef90275f65703'
  
 export const getData =  (domain, page,results ) => {
    return async ()=> {

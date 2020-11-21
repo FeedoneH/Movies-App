@@ -1,12 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import { reducer } from "./auth";
-import { MODULE_NAME as auth } from "./auth";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 
-const rootReducer = combineReducers({ [auth]: reducer });
+import { reducer as authReducer } from "./auth";
+import { MODULE_NAME as auth } from "./auth";
+
+const rootReducer = combineReducers({ [auth]: authReducer });
 
 const persistConfig = {
   key: "root",
@@ -19,4 +20,5 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 export const persistor = persistStore(store);
+persistor.purge()
 export default store;

@@ -1,11 +1,14 @@
 const SET_AUTH_SUCCESS = "SET_AUTH_SUCCESS";
 const SET_LOG_OUT = "SET_LOG_OUT";
+const SET_ERROR = 'SET_ERROR';
 export const MODULE_NAME = "auth";
-const getAuthToken = (state) => state[MODULE_NAME].idToken;
+export const getAuthToken = (state) => state[MODULE_NAME].idToken;
 export const getAuthStatus = (state) => state[MODULE_NAME].status;
-
+export const getError = (state) => state[MODULE_NAME].error;
+export const getUserData = state => state[MODULE_NAME].user
 const initialState = {
   status: false,
+  error: '',
   user: {
     email: "",
     idToken: null,
@@ -31,16 +34,24 @@ export function reducer(state = initialState, { type, payload }) {
           localId: null,
         },
       };
+      case SET_ERROR: 
+      return {
+        ...state,
+        error: payload
+      }
     default:
       return state;
   }
 }
-const SetAuthSuccess = (payload) => ({
+const setAuthSuccess = (payload) => ({
   type: SET_AUTH_SUCCESS,
   payload,
 });
-
-export const signUser = ({ email, password }, signIn) => async (dispatch) => {
+const setError =(payload) =>({
+  type:  SET_ERROR,
+  payload
+})
+export const signUser = ({ email, password,fullName }, signIn) => async (dispatch) => {
   const API_KEY = "AIzaSyCHSjduCUu1VMkIRjzu01uMsg6Eu8zqE0M";
   let signType = signIn ? "signInWithPassword" : "signUp";
   const domain = `https://identitytoolkit.googleapis.com/v1/accounts:${signType}?key=${API_KEY}`;
@@ -53,12 +64,21 @@ export const signUser = ({ email, password }, signIn) => async (dispatch) => {
     const answer = await response.json();
     if(!answer.error){
     const { email, idToken, localId } = answer;
-    dispatch(SetAuthSuccess({ email, idToken, localId }));}
+    dispatch(setAuthSuccess({ email, idToken, localId }));
+    signType === 'signUp' && await  fetch('https://usersprojects-6d10e.firebaseio.com/users', {
+      method: 'PUT',
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({email, password,fullName })
+    }) 
+  
+  }
     else {
       console.log('error occured')
     }
     console.log(answer);
+    dispatch(setError(answer?.error?.message))
   } catch (error) {
     console.log(error,'auth');
+    
   }
 };
