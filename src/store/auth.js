@@ -84,10 +84,11 @@ export const signUser = ({ email, password, fullName }, signIn) => async (
 
       dispatch(setAuthSuccess({ idToken, localId, ...data }));
     } else {
-      console.log("error occured");
+     
+      dispatch(setError('Invalid email or password.'));
+      console.log(answer?.error?.message)
     }
 
-    dispatch(setError(answer?.error?.message));
   } catch (error) {
     console.log(error, "auth");
   }

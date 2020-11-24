@@ -2,13 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export const Input = ({ heading,handleFieldChange, name , ...rest}) => {
- /*  const [fields, setFields] = useState({ email: "", password: "" });
 
-  const handleFieldChange = (name, value) =>
-    setFields((fields) => ({
-      ...fields,
-      [name]: value,
-    })); */
   return (
     <Container>
       <h6>{heading}:</h6>
